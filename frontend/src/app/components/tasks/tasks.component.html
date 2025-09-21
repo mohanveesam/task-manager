@@ -50,6 +50,9 @@
         <button mat-icon-button color="warn" (click)="deleteTask(task._id)">
           <mat-icon>delete</mat-icon>
         </button>
+        <button mat-icon-button color="primary" (click)="openStatusPopup(task)">
+          <mat-icon>check_circle</mat-icon>
+        </button>
       </td>
     </ng-container>
 
@@ -58,3 +61,25 @@
   </table>
 </div>
 </mat-card>
+
+<ng-template #statusPopup>
+  <div class="p-4">
+  <h4 mat-dialog-title>Update Status</h4>
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Status</mat-label>
+      <mat-select [(value)]="selectedStatus">
+        <mat-option *ngFor="let status of statusOptions" [value]="status">
+          {{ status }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button class="btn me-3" type="button" (click)="closeStatusPopup()">Cancel</button>
+    <button class="btn btn-primary" type="submit" (click)="submitStatus()">Submit</button>
+  </mat-dialog-actions>
+  </div>
+</ng-template>
+

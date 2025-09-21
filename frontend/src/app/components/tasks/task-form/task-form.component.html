@@ -8,38 +8,50 @@
 
   <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
 
+    <!-- Project Select -->
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Select Project</mat-label>
-      <mat-select formControlName="selectedProject" (selectionChange)="onProjectChange($event.value)">
-        <mat-option *ngFor="let project of projects" [value]="project._id">  
+      <mat-select
+        formControlName="selectedProject"
+        (selectionChange)="onProjectChange($event.value)"
+      >
+        <mat-option *ngFor="let project of projects" [value]="project._id">
           {{ project.projectName }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Select Employee</mat-label>
-      <mat-select formControlName="taskAssignedTo">
-        <mat-option *ngFor="let user of users" [value]="user._id">
-          {{ user.fullname }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <!-- Employee Select -->
+<mat-form-field appearance="fill" class="full-width">
+  <mat-label>Select Employee</mat-label>
+  <mat-select
+    formControlName="taskAssignedTo"
+    [compareWith]="compareById"
+  >
+    <mat-option *ngFor="let user of users" [value]="user._id">
+      {{ user.fullname }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
-    <mat-form-field appeacloseDialogrance="outline" floatLabel="always" class="w-100 mt-3">
+    <!-- Task Name -->
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100 mt-3">
       <mat-label>Task Name</mat-label>
       <input matInput formControlName="taskName" type="text" />
     </mat-form-field>
 
+    <!-- Task Description -->
     <mat-form-field appearance="outline" floatLabel="always" class="w-100 mt-3">
       <mat-label>Task Description</mat-label>
       <textarea matInput formControlName="taskDescription"></textarea>
     </mat-form-field>
 
-    <div>
-    <button class="btn me-3" type="button" (click)="onCancel()">Cancel</button>
-    <button class="btn btn-primary" type="submit" > {{ mode === 'E' ? 'Update' : 'Submit' }}</button>
+    <!-- Buttons -->
+    <div class="mt-3">
+      <button class="btn me-3" type="button" (click)="onCancel()">Cancel</button>
+      <button class="btn btn-primary" type="submit">
+        {{ mode === 'E' ? 'Update' : 'Submit' }}
+      </button>
     </div>
   </form>
-
 </div>

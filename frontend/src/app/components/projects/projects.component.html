@@ -11,12 +11,12 @@
   <div class="row px-0 mx-0 d-flex">
     <div class="col-3 px-0" style="height: 84vh;">
       <mat-card class="px-0 mx-0" style="height: 84vh;">
-        <mat-list>
-          <mat-list-item *ngFor="let project of projects" class="mt-3"  (click)="selectProject(project)" [class.active]="project.id === activeProjectId">
+        <mat-list *ngFor="let project of projects">
+          <mat-list-item   (click)="selectProject(project)" [class.active]="project.id === activeProjectId">
              <span class="fw-bold">{{ project.projectName }}</span><br>
             <small class="text-muted">Created by: {{ project.createdBy.fullname }}</small>
-            <mat-divider></mat-divider>
           </mat-list-item>
+          <mat-divider></mat-divider>
         </mat-list>
       </mat-card>
     </div>

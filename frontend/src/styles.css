@@ -35,3 +35,17 @@ html, body {
   height: 100%;
   overflow: auto;
 }
+.data-row {
+  cursor: pointer;
+}
+
+.detail-row {
+  background: #f5f5f5;
+}
+
+.expanded-content {
+  padding: 12px;
+  font-size: 14px;
+}
+
+

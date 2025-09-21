@@ -42,11 +42,22 @@ exports.updateTask = async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
 
-    const taskUpdate = await Task.findByIdAndUpdate(updateData, id, { new: true });
+    const taskUpdate = await Task.findByIdAndUpdate(id, updateData, { new: true });
     if(!taskUpdate) return res.status(400).json({message: 'User Id Not exist'});
     res.status(201).json(taskUpdate);
   }
   catch(error){
      res.status(500).json({ error: error.message });
+  }
+}
+
+exports.deleteTask = async (req, res) => {
+  try{
+    const { id } = req.params;
+    await Task.findByIdAndDelete(id);
+    res.status(200).json({ message: "Task deleted" });
+  }
+  catch(error){
+    res.status(500).json({ error: error.message });
   }
 }

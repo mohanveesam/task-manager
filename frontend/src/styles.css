@@ -21,12 +21,11 @@ html, body {
 }
 
 /* Active link styling */
-.active-link {
-  background-color: #cce5ff;
-  color: #000000;
-  font-weight: bold;
-  border-radius: 4px;
-}
+/* .active-link {
+  background-color: #0d6efd;
+  color: rgb(255, 255, 255) !important;
+  border-radius: 6px;
+} */
 
 /* Main content styling */
 .main-content {
@@ -35,17 +34,71 @@ html, body {
   height: 100%;
   overflow: auto;
 }
-.data-row {
-  cursor: pointer;
+
+.mat-mdc-list-item:hover {
+  background-color: rgba(var(--mdc-theme-primary-rgb, 25, 118, 210), 0.1);
+  color: var(--mdc-theme-primary, #0b5ed7);
+    border-radius: 8px !important;
+}
+/* Active route styling */
+.active-link {
+  background-color: #0b5ed7 !important; /* theme primary */
+  color: white !important;
+  font-weight: 600;
+  border-radius: 8px;
+}
+a.mat-mdc-list-item.active-link {
+  background-color: #0b5ed7 !important; /* primary */
+  border-radius: 8px;
 }
 
-.detail-row {
-  background: #f5f5f5;
+/* Fix the actual label text */
+a.mat-mdc-list-item.active-link .mdc-list-item__primary-text {
+  color: #ffffff !important;
 }
 
-.expanded-content {
-  padding: 12px;
-  font-size: 14px;
+/* Ensure mat-icons or svgs also turn white */
+a.mat-mdc-list-item.active-link mat-icon,
+a.mat-mdc-list-item.active-link .mat-icon,
+a.mat-mdc-list-item.active-link svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+.table-container {
+  height: 84vh;              /* Fix height */
+  overflow-y: auto;          /* Enable vertical scroll */
+  overflow-x: hidden;        /* Prevent sideways scroll */
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
+.mat-mdc-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 1;                /* Keep header on top of rows */
+  background: #fff;          /* Match card background */
+}
+
+.task-card {
+  height: 50vh;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  position: sticky;
+  top: 0;
+  background: rgba(220, 53, 69, 0.5); /* match card bg (danger with opacity) */
+  margin: 0;
+  padding: 8px;
+  z-index: 1;
+}
+
+.task-list {
+  flex: 1;    
+  overflow-y: auto;      
+}

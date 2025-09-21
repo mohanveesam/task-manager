@@ -40,8 +40,10 @@
       </div>
       <!-- Logout at bottom -->
       <div class="d-flex justify-content-center">
-        <div *ngIf="fullname">👋 Welcome, {{ fullname }} </div>
-        <button mat-button (click)="logout()">🚪 Logout</button>
+        <div *ngIf="fullname" class="pe-5">👋 Welcome,<br> {{ fullname }} </div>
+        <div>
+        <button type="button" class="btn btn-outline-danger" matTooltip="Logout" (click)="logout()"><mat-icon class="pt-1" color="warn">logout</mat-icon></button>
+        </div>
       </div>
 
     </mat-sidenav>

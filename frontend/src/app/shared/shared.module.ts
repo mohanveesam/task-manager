@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCard } from "@angular/material/card";
+import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [],
@@ -34,7 +36,10 @@ import { MatCard } from "@angular/material/card";
     MatFormFieldModule,
     MatSnackBarModule,
     MatSelectModule,
-    MatCard
+    MatCard,
+    MatTooltipModule,
+    MatPaginatorModule,
+    MatPaginator
 
   ],
   exports : [
@@ -53,7 +58,10 @@ import { MatCard } from "@angular/material/card";
     MatInputModule,
     MatSnackBarModule,
     MatSelectModule,
-    MatCard
+    MatCard,
+    MatTooltipModule,
+    MatPaginatorModule,
+    MatPaginator
   ]
 })
 export class SharedModule { }

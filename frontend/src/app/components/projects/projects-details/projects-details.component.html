@@ -12,11 +12,11 @@
     </p>
   </div>
   <div class="col-3 d-flex justify-content-start gap-2">
-    <button *ngIf="project.createdBy.id === USERID" mat-raised-button color="primary" (click)="openForm(project)">
-      Edit
+    <button *ngIf="project.createdBy.id === USERID"  type="button" class="px-1 pt-2  btn btn-outline-primary" matTooltip="Edit" (click)="openForm(project)">
+     <mat-icon class="pt-1">edit</mat-icon>
     </button>
-    <button mat-raised-button color="warn" (click)="deleteProject(project._id)">
-      Delete
+    <button *ngIf="project.createdBy.id === USERID" type="button" class="px-1 pt-2  btn btn-outline-danger" matTooltip="Delete" (click)="deleteProject(project._id)">
+      <mat-icon class="pt-1">delete</mat-icon>
     </button>
   </div>
 </div>

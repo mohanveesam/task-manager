@@ -15,11 +15,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class TasksComponent {
   @ViewChild('statusPopup') statusPopup!: TemplateRef<any>;
- tasks : any[] = [];
- statusOptions: string[] = ["To Be Done", "In Progress", "Completed"];
+  role: number | null = null;
+  tasks : any[] = [];
+  statusOptions: string[] = ["To Be Done", "In Progress", "Completed"];
   selectedTask: any = null;  // to hold which row is being edited
   selectedStatus: string = ""; // model for dropdown
   showStatusPopup: boolean = false; // control popup visibility
+  USERID: string | null ='';
   
   constructor(private dialog : MatDialog, private cs: CommonService, private snackBar: MatSnackBar){
 
@@ -27,12 +29,20 @@ export class TasksComponent {
   displayedColumns: string[] = ['projectName', 'projectCreator','creationDate', 'taskName', 'taskDescription', 'taskstatus', 'actions'];
   
   ngOnInit() {
+    this.USERID = localStorage.getItem('id');
+    this.role = Number(localStorage.getItem('role'));
     this.getAllTasks();
   }
 
   getAllTasks() {
     this.cs.getAll('tasks').subscribe((res: any) => {
-      this.tasks = res;
+     this.tasks = res.filter((r: any) => {
+      const assignedToMatch = r.taskAssignedTo === this.USERID;
+      const createdByMatch = r.selectedProject?.createdBy?.id === this.USERID;
+
+      return assignedToMatch || createdByMatch;
+    });
+
     });
   }
   

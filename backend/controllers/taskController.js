@@ -24,7 +24,7 @@ exports.getAllTask = async (req, res) => {
   try {
     const tasks = await Task.find().populate({
         path: "selectedProject",
-        select: "createdBy projectName",  
+        select: "createdBy projectName assignedTo",  
         populate: {
           path: "createdBy",
           select: "fullname"  

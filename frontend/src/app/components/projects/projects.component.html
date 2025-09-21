@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center p-1">
         <div><h4>Projects</h4></div>
         <div>
-            <button type="button" class="btn btn-primary d-flex justify-content-between align-items-center" (click)="openForm()"><mat-icon>add</mat-icon>Add</button>
+            <button type="button" class="btn btn-primary d-flex justify-content-between align-items-center" matTooltip="Add Project" (click)="openForm()"><mat-icon>add</mat-icon>Add</button>
         </div>
     </div>
 </mat-card>
@@ -12,7 +12,7 @@
     <div class="col-3 px-0" style="height: 84vh;">
       <mat-card class="px-0 mx-0" style="height: 84vh;">
         <mat-list *ngFor="let project of projects">
-          <mat-list-item   (click)="selectProject(project)" [class.active]="project.id === activeProjectId">
+          <mat-list-item   (click)="selectProject(project)" [ngClass]="{'active-link': selectedItem === project}">
              <span class="fw-bold">{{ project.projectName }}</span><br>
             <small class="text-muted">Created by: {{ project.createdBy.fullname }}</small>
           </mat-list-item>

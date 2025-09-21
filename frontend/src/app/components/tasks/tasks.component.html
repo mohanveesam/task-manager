@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center p-1">
         <div><h4>Tasks</h4></div>
         <div>
-            <button type="button" class="btn btn-primary d-flex justify-content-between align-items-center" (click)="openForm()"><mat-icon>add</mat-icon>Add</button>
+            <button *ngIf="role == 1 || role == 2" type="button" matTooltip="Add Task" class="btn btn-primary d-flex justify-content-between align-items-center" (click)="openForm()"><mat-icon>add</mat-icon>Add</button>
         </div>
     </div>
 </mat-card>
@@ -44,27 +44,36 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let task">
-        <button mat-icon-button (click)="openForm(task)">
-          <mat-icon>edit</mat-icon>
+        <button *ngIf="task.selectedProject?.createdBy?.id === USERID" type="button" class="me-2 px-1 pt-2  btn btn-outline-primary" (click)="openForm(task)" matTooltip="Edit">
+          <mat-icon class="pt-1">edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" (click)="deleteTask(task._id)">
-          <mat-icon>delete</mat-icon>
+        <button *ngIf="task.selectedProject?.createdBy?.id === USERID" type="button" class="me-2 px-1 pt-2 btn btn-outline-danger" (click)="deleteTask(task._id)" matTooltip="Delete">
+          <mat-icon class="pt-1" >delete</mat-icon>
         </button>
-        <button mat-icon-button color="primary" (click)="openStatusPopup(task)">
-          <mat-icon>check_circle</mat-icon>
+        <button *ngIf="task.taskAssignedTo === USERID || task.selectedProject?.createdBy?.id === USERID" type="button" class="px-1 pt-2 btn btn-outline-success" (click)="openStatusPopup(task)" matTooltip="Status Update">
+          <mat-icon class="pt-1">check_circle</mat-icon>
         </button>
       </td>
-    </ng-container>
+    </ng-container> 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
 </div>
 </mat-card>
 
 <ng-template #statusPopup>
   <div class="p-4">
-  <h4 mat-dialog-title>Update Status</h4>
+  <div class="d-flex align-items-center justify-content-between">
+  <h5 mat-dialog-title>Update Status</h5>
+  <div (click)="closeStatusPopup()" style="cursor: pointer;" matTooltip="Close">
+      <mat-icon>cancel</mat-icon>
+  </div>
+  </div>
   <mat-dialog-content>
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Status</mat-label>
@@ -76,9 +85,9 @@
     </mat-form-field>
   </mat-dialog-content>
 
-  <mat-dialog-actions align="end">
-    <button class="btn me-3" type="button" (click)="closeStatusPopup()">Cancel</button>
-    <button class="btn btn-primary" type="submit" (click)="submitStatus()">Submit</button>
+  <mat-dialog-actions>
+    <button type="button" class="me-1 btn btn-light" matTooltip="Cancel" (click)="closeStatusPopup()"><mat-icon class="pt-2">close</mat-icon>Cancel</button>
+    <button class="btn btn-primary" type="submit"matTooltip="Update" (click)="submitStatus()"><mat-icon class="pt-1">done_all</mat-icon>Update</button>
   </mat-dialog-actions>
   </div>
 </ng-template>

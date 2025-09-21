@@ -16,6 +16,7 @@ export class ProjectsComponent {
   isShow : any =null;
   activeProjectId : number | null = null;
   selectedProject: any = null;
+  selectedItem: any;
   constructor (private dialog: MatDialog, private cs: CommonService){
 
   }
@@ -50,4 +51,7 @@ export class ProjectsComponent {
     this.selectedProject = project
     this.isShow =1
   }
+  setActive(item: any) {
+  this.selectedItem = item;
+}
 }

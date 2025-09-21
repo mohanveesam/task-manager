@@ -16,9 +16,10 @@ export class DashboardComponent {
   inProgressTasks : any[] = [];
   completedTasks : any[] = [];
   last: any;
-
+  USERID: string | null ='';
   constructor(private cs:CommonService){}
   ngOnInit() {
+    this.USERID = localStorage.getItem('id');
     this.getAllProjects();
     this.getAllTasks();
   }
@@ -36,10 +37,15 @@ export class DashboardComponent {
   getAllTasks(){
     this.cs.getAll('tasks').subscribe({
       next: (res: any) => {
-        this.tasks = res.tasks;   // ✅ assign projects to array
-        this.toBeDoneTasks = this.tasks.filter(t => t.taskstatus === 'To Be Done');
-        this.inProgressTasks = this.tasks.filter(t => t.taskstatus === 'In Progress');
-        this.completedTasks = this.tasks.filter(t => t.taskstatus === 'Completed');
+        this.tasks = res.filter((r: any) => {
+        const projectAssignedMatch = r.selectedProject?.assignedTo?.includes(this.USERID);
+        const createdByMatch = r.selectedProject?.createdBy?.id === this.USERID;
+
+         return projectAssignedMatch || createdByMatch;
+        });
+        this.toBeDoneTasks = this.tasks.filter((t: any) => t.taskstatus === 'To Be Done');
+        this.inProgressTasks = this.tasks.filter((t: any) => t.taskstatus === 'In Progress');
+        this.completedTasks = this.tasks.filter((t: any) => t.taskstatus === 'Completed');
       },
       error: (err) => {
         console.error('Error fetching projects:', err);

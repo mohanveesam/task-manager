@@ -65,9 +65,9 @@ a.mat-mdc-list-item.active-link svg {
   fill: #ffffff !important;
 }
 .table-container {
-  height: 84vh;              /* Fix height */
-  overflow-y: auto;          /* Enable vertical scroll */
-  overflow-x: hidden;        /* Prevent sideways scroll */
+  height: 76vh !important;              /* Fix height */
+  overflow-y: auto !important;          /* Enable vertical scroll */
+  overflow-x: hidden !important;        /* Prevent sideways scroll */
 }
 
 table {
@@ -101,4 +101,9 @@ table {
 .task-list {
   flex: 1;    
   overflow-y: auto;      
+}
+.mat-primary .mat-mdc-header-cell {
+  color: white;
+  font-weight: 600;
+  background-color: #0b5ed7 !important;
 }

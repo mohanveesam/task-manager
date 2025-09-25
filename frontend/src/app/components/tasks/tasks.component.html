@@ -8,8 +8,8 @@
 </mat-card>
 
 <mat-card>
-<div class="table-container" style="height: 84vh">
-  <table mat-table [dataSource] = "tasks" class="mat-elevation-z8">  
+<div class="table-container">
+  <table mat-table [dataSource] = "dataSource" class="mat-elevation-z8">  
 
     <ng-container matColumnDef="projectName">
       <th mat-header-cell *matHeaderCellDef>Project Name</th>
@@ -56,14 +56,14 @@
       </td>
     </ng-container> 
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="mat-primary"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+</div>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]"
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
   </mat-paginator>
-</div>
 </mat-card>
 
 <ng-template #statusPopup>

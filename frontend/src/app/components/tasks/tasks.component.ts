@@ -5,8 +5,14 @@ import { TaskFormComponent } from './task-form/task-form.component';
 import { MatCard } from "@angular/material/card";
 import { SharedModule } from "../../shared/shared.module";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
-
+export interface Tasks {
+  id: number;
+  name: string;
+  phone: string;
+}
 @Component({
   selector: 'app-tasks',
   imports: [MatCard, SharedModule, MatDialogActions, MatDialogContent],
@@ -15,8 +21,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class TasksComponent {
   @ViewChild('statusPopup') statusPopup!: TemplateRef<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator; 
+  
   role: number | null = null;
   tasks : any[] = [];
+  dataSource = new MatTableDataSource<any>();
   statusOptions: string[] = ["To Be Done", "In Progress", "Completed"];
   selectedTask: any = null;  // to hold which row is being edited
   selectedStatus: string = ""; // model for dropdown
@@ -33,7 +42,9 @@ export class TasksComponent {
     this.role = Number(localStorage.getItem('role'));
     this.getAllTasks();
   }
-
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;  // ✅ Attach paginator after view init
+  }
   getAllTasks() {
     this.cs.getAll('tasks').subscribe((res: any) => {
      this.tasks = res.filter((r: any) => {
@@ -42,7 +53,7 @@ export class TasksComponent {
 
       return assignedToMatch || createdByMatch;
     });
-
+     this.dataSource.data = this.tasks; // keep both in sync
     });
   }
   

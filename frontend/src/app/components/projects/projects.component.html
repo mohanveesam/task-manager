@@ -9,10 +9,10 @@
 
 <mat-card>
   <div class="row px-0 mx-0 d-flex">
-    <div class="col-3 px-0" style="height: 84vh;">
-      <mat-card class="px-0 mx-0" style="height: 84vh;">
-        <mat-list *ngFor="let project of projects">
-          <mat-list-item   (click)="selectProject(project)" [ngClass]="{'active-link': selectedItem === project}">
+    <div class="col-3 px-0">
+      <mat-card class="px-0 mx-0 left-list" >
+        <mat-list>
+          <mat-list-item  *ngFor="let project of projects" (click)="selectProject(project)" [ngClass]="{'active-link': selectedItem === project}">
              <span class="fw-bold">{{ project.projectName }}</span><br>
             <small class="text-muted">Created by: {{ project.createdBy.fullname }}</small>
           </mat-list-item>
@@ -21,7 +21,7 @@
       </mat-card>
     </div>
     <div class="col-9" *ngIf="isShow ==1">
-      <app-projects-details [project]="selectedProject"></app-projects-details>
+      <app-projects-details [project]="selectedProject" ></app-projects-details>
     </div>
   </div>
 </mat-card>

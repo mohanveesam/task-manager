@@ -2,8 +2,8 @@
     
   <div class="col-3">
     <mat-card class="px-0 mx-0 bg-primary bg-opacity-50" style="height: 94vh; overflow-y: auto">
-      <mat-list class="p-0" *ngFor="let project of projects; let last = last">
-        <mat-list-item>
+      <mat-list class="p-0" >
+        <mat-list-item *ngFor="let project of projects; let last = last">
           <div class="d-flex flex-column w-100">
             <span class="fw-bold">{{ project.projectName }}</span>
             <small class="text-muted"
@@ -21,8 +21,8 @@
     <mat-card class="px-0 mx-0 bg-danger bg-opacity-50 task-card">
         <h5 class="text-center">-: To Be Done :-</h5>
       <div class="task-list">
-      <mat-list class="p-0" *ngFor="let task of toBeDoneTasks; let last = last">
-        <mat-list-item>
+      <mat-list class="p-0" >
+        <mat-list-item *ngFor="let task of toBeDoneTasks; let last = last">
           <div class="d-flex flex-column w-100">
             <span class="fw-bold">{{ task.taskName }}</span>
             <small>Created by: {{ task.creationDate | date }}</small>
@@ -38,8 +38,8 @@
     <mat-card class="px-0 mx-0 bg-warning bg-opacity-50 task-card">
         <h5 class="text-center">-: To Be Done :-</h5>
       <div class="task-list">
-      <mat-list class="p-0" *ngFor="let task of inProgressTasks; let last = last">
-        <mat-list-item>
+      <mat-list class="p-0">
+        <mat-list-item  *ngFor="let task of inProgressTasks; let last = last">
           <div class="d-flex flex-column w-100">
             <span class="fw-bold">{{ task.taskName }}</span>
             <small>Created by: {{ task.creationDate | date }}</small>
@@ -55,8 +55,8 @@
     <mat-card class="px-0 mx-0 bg-success bg-opacity-50 task-card">
         <h5 class="text-center">-: To Be Done :-</h5>
       <div class="task-list">
-      <mat-list class="p-0" *ngFor="let task of completedTasks; let last = last">
-        <mat-list-item>
+      <mat-list class="p-0" >
+        <mat-list-item *ngFor="let task of completedTasks; let last = last">
           <div class="d-flex flex-column w-100">
             <span class="fw-bold">{{ task.taskName }}</span>
             <small>Created by: {{ task.creationDate | date }}</small>

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonService } from '../../../services/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,6 +12,7 @@ import { SharedModule } from "../../../shared/shared.module";
   styleUrl: './projects-form.component.css'
 })
 export class ProjectsFormComponent implements OnInit {
+  @Output() projectUpdated = new EventEmitter<any>(); // 👈 emitter
   mode: 'A' | 'E'; 
   projectForm : FormGroup;
   users: any[] = [];
@@ -76,7 +77,14 @@ export class ProjectsFormComponent implements OnInit {
           horizontalPosition: 'center',
           verticalPosition: 'top',
           });
-          this.dialogRef.close(true)
+          const assignedUsers = this.users.filter(user =>
+              this.projectForm.value.assignedTo.includes(user._id)
+          );
+          const updatedProject = { 
+          _id: this.data.project._id, 
+          ...formValue, createdBy: this.data.project.createdBy, assignedTo: assignedUsers
+          };
+          this.dialogRef.close(updatedProject)
         },
         error: (err) => {
           console.error('Update error:', err);
@@ -93,6 +101,15 @@ export class ProjectsFormComponent implements OnInit {
           horizontalPosition: 'center',
           verticalPosition: 'top',
           });
+        // const assignedUsers = this.users.filter(user =>
+        //   formValue.assignedTo.includes(user._id)
+        //  );
+        // const newProject = {
+        //   _id: res._id,  
+        //   ...formValue,
+        //   createdBy: res.createdBy,
+        //   assignedTo: assignedUsers
+        // };
           this.dialogRef.close(true)
         },
         error: (err) => {

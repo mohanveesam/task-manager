@@ -43,7 +43,7 @@ export class ProjectsComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) this.getAllProjects();
+      if (result) {this.getAllProjects()};
     });
   }
   selectProject(project: any){

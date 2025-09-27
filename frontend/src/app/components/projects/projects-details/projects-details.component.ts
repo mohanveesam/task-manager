@@ -23,13 +23,14 @@ export class ProjectsDetailsComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.getProjectDetails(result.id);
-      }
-    });
+
+  dialogRef.afterClosed().subscribe((updatedProject) => {
+    if (updatedProject) {
+      this.project = { ...updatedProject }; 
+    }
+  });
   }
-  getProjectDetails(id: number) {
+  getProjectDetails(id: any) {
     this.cs.getAll(`projects/${id}`).subscribe({
       next: (res: any) => {
         this.project = { ...res };

@@ -107,3 +107,8 @@ table {
   font-weight: 600;
   background-color: #0b5ed7 !important;
 }
+.left-list {
+  height: 84vh !important;              /* Fix height */
+  overflow-y: auto !important;          /* Enable vertical scroll */
+  overflow-x: hidden !important;        /* Prevent sideways scroll */
+}

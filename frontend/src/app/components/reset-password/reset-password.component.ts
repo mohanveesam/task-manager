@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { SharedModule } from '../../shared/shared.module';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-reset-password',
@@ -18,58 +19,35 @@ export class ResetPasswordComponent {
   error = '';
   success: any;
 
-  constructor(private fb: FormBuilder, private cs: CommonService, private router: Router) {
+  constructor(private fb: FormBuilder, private cs: CommonService, private router: Router, private snackBar: MatSnackBar,) {
     this.resetForm = this.fb.group({
       username: ['', Validators.required],
-       newPassword: ['', Validators.required],
-       confirmPassword: ['', Validators.required]
+      newPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
     });
   }
 
-  // reset() {
-  // if (this.resetForm.valid) {
-  //   const payload = {
-  //     username: this.username, // from query param
-  //     token: this.token,       // from query param
-  //     newPassword: this.resetForm.value.newPassword
-  //   };
-
-  //   this.cs.resetPassword(payload).subscribe({
-  //     next: (res: any) => {
-  //       this.message = res.message;
-  //       setTimeout(() => this.router.navigate(['/login']), 2000);
-  //     },
-  //     error: (err) => {
-  //       this.error = err.error?.error || 'Reset failed';
-  //     }
-  //   });
-  // }
-  // }
-   submit() {
-    if (this.resetForm.invalid) {
-      this.error = 'All fields are required';
-      return;
-    }
-
-    const { username, newPassword, confirmPassword } = this.resetForm.value;
-
-    if (newPassword !== confirmPassword) {
-      this.error = 'Passwords do not match';
-      return;
-    }
-
-    this.cs.resetPassword({ username, newPassword }).subscribe({
-      next: (res: any) => {
-        this.success = res.message;
-        this.error = '';
-        setTimeout(() => this.router.navigate(['/components/login']), 2000);
-      },
-      error: (err) => {
-        this.error = err.error?.error || 'Reset failed';
-        this.success = '';
-      }
-    });
+  onReset() {
+  if (this.resetForm.value.newPassword !== this.resetForm.value.confirmPassword) {
+    alert("Passwords do not match");
+    return;
   }
-
-
+  this.cs.resetPassword({
+    username: this.resetForm.value.username,
+    newPassword: this.resetForm.value.newPassword
+  }).subscribe({
+    next: () => {
+      this.snackBar.open('Password Resetted successfully!', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          });
+      // this.resetForm.reset();
+       setTimeout(() => this.router.navigate(['/components/login']), 300);
+    },
+    error: (err) => {
+      alert(err.error.message);
+    }
+  });
+  }
 }

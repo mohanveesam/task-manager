@@ -12,11 +12,13 @@
     <div class="col-3 px-0">
       <mat-card class="px-0 mx-0 left-list" >
         <mat-list>
-          <mat-list-item  *ngFor="let project of projects" (click)="selectProject(project)" [ngClass]="{'active-link': selectedItem === project}">
-             <span class="fw-bold">{{ project.projectName }}</span><br>
-            <small class="text-muted">Created by: {{ project.createdBy.fullname }}</small>
-          </mat-list-item>
-          <mat-divider></mat-divider>
+          <ng-container *ngFor="let project of projects; let i=index" >
+            <mat-list-item  (click)="selectProject(project)" [ngClass]="{'active-link': selectedItem === project}">
+              <span class="fw-bold">{{ project.projectName }}</span><br>
+              <small class="text-muted">Created by: {{ project.createdBy.fullname }}</small>
+            </mat-list-item>
+            <mat-divider *ngIf="i<projects.length"></mat-divider>
+          </ng-container>
         </mat-list>
       </mat-card>
     </div>

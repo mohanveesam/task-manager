@@ -1,34 +1,38 @@
 <div class="row " >
     
   <div class="col-3">
-    <mat-card class="px-0 mx-0 bg-primary bg-opacity-50" style="height: 94vh; overflow-y: auto">
+    <mat-card class="px-0 mx-0 bg-primary bg-opacity-50" >
+      <h5 class="text-center">-: All Projects :-</h5>
+      <div style="height: 89vh; overflow-y: auto">
       <mat-list class="p-0" >
-        <mat-list-item *ngFor="let project of projects; let last = last">
-          <div class="d-flex flex-column w-100">
-            <span class="fw-bold">{{ project.projectName }}</span>
-            <small class="text-muted"
-              >Created by: {{ project.createdBy.fullname }}</small
-            >
-          </div>
-        </mat-list-item>
-        <!-- Divider between items (but not after the last one) -->
-        <mat-divider *ngIf="!last"></mat-divider>
+        <ng-container *ngFor="let project of projects; let last = last">
+          <mat-list-item>
+            <div class="d-flex flex-column w-100">
+              <span class="fw-bold">{{ project.projectName }}</span>
+              <small class="text-muted">Created by: {{ project.createdBy.fullname }}</small>
+            </div>
+          </mat-list-item>
+          <mat-divider *ngIf="!last"></mat-divider>
+        </ng-container>
       </mat-list>
+      </div>
     </mat-card>
   </div>
 
   <div class="col-3 d-flex align-items-start justify-content-start ">
     <mat-card class="px-0 mx-0 bg-danger bg-opacity-50 task-card">
-        <h5 class="text-center">-: To Be Done :-</h5>
+        <h5 class="text-center">-: Pending Tasks :-</h5>
       <div class="task-list">
       <mat-list class="p-0" >
-        <mat-list-item *ngFor="let task of toBeDoneTasks; let last = last">
-          <div class="d-flex flex-column w-100">
-            <span class="fw-bold">{{ task.taskName }}</span>
-            <small>Created by: {{ task.creationDate | date }}</small>
-          </div>
-        </mat-list-item>
-        <mat-divider *ngIf="!last"></mat-divider>
+        <ng-container *ngFor="let task of toBeDoneTasks; let last = last">
+          <mat-list-item >
+            <div class="d-flex flex-column w-100">
+              <span class="fw-bold">{{ task.taskName }}</span>
+              <small>Created by: {{ task.creationDate | date }}</small>
+            </div>
+          </mat-list-item>
+          <mat-divider *ngIf="!last"></mat-divider>
+        </ng-container>
       </mat-list>
       </div>
     </mat-card>
@@ -36,16 +40,18 @@
 
   <div class="col-3 d-flex align-items-center justify-content-center">
     <mat-card class="px-0 mx-0 bg-warning bg-opacity-50 task-card">
-        <h5 class="text-center">-: To Be Done :-</h5>
+        <h5 class="text-center">-: In-Progress Tasks :-</h5>
       <div class="task-list">
       <mat-list class="p-0">
-        <mat-list-item  *ngFor="let task of inProgressTasks; let last = last">
+         <ng-container *ngFor="let task of inProgressTasks; let last = last">
+        <mat-list-item>
           <div class="d-flex flex-column w-100">
             <span class="fw-bold">{{ task.taskName }}</span>
             <small>Created by: {{ task.creationDate | date }}</small>
           </div>
         </mat-list-item>
         <mat-divider *ngIf="!last"></mat-divider>
+        </ng-container>
       </mat-list>
       </div>
     </mat-card>
@@ -53,16 +59,18 @@
 
   <div class="col-3 d-flex align-items-end justify-content-end ">
     <mat-card class="px-0 mx-0 bg-success bg-opacity-50 task-card">
-        <h5 class="text-center">-: To Be Done :-</h5>
+        <h5 class="text-center">-: completed Tasks :-</h5>
       <div class="task-list">
       <mat-list class="p-0" >
-        <mat-list-item *ngFor="let task of completedTasks; let last = last">
+        <ng-container *ngFor="let task of completedTasks; let last = last">
+        <mat-list-item>
           <div class="d-flex flex-column w-100">
             <span class="fw-bold">{{ task.taskName }}</span>
             <small>Created by: {{ task.creationDate | date }}</small>
           </div>
         </mat-list-item>
         <mat-divider *ngIf="!last"></mat-divider>
+        </ng-container>
       </mat-list>
       </div>
     </mat-card>
